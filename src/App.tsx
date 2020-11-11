@@ -1,7 +1,15 @@
 import React from "react";
+import GlobalStyle from "./style/global";
 
-function App() {
-  return <div>Oi</div>;
-}
+import Header from "./components/Header";
+
+const App: React.FC = () => {
+  return (
+    <>
+      <Header />
+      <GlobalStyle />
+    </>
+  );
+};
 
 export default App;

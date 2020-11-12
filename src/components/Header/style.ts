@@ -4,8 +4,10 @@ export const Menu = styled.div`
   position: absolute;
   background: #293241ff;
   width: 100vw;
+  height: 160px;
   left: 0px;
   top: 0px;
+  z-index: -1;
   div {
     max-width: 960px;
     margin: 0 auto;

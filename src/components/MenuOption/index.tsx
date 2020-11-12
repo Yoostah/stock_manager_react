@@ -1,4 +1,4 @@
-import React, { useCallback, useState, LiHTMLAttributes } from "react";
+import React, { useState, LiHTMLAttributes, memo } from "react";
 import { Option } from "./style";
 
 interface OptionProps extends LiHTMLAttributes<HTMLLIElement> {
@@ -19,4 +19,4 @@ const MenuOption: React.FC<OptionProps> = ({ children, ...rest }) => {
   );
 };
 
-export default MenuOption;
+export default memo(MenuOption);

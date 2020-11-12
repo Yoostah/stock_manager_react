@@ -36,7 +36,8 @@ export default createGlobalStyle`
     cursor: pointer;
   }
 
-  #root {
-
+  a {
+    color: #fff;
+    text-decoration: none;
   }
 `;

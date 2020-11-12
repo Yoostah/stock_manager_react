@@ -1,6 +1,7 @@
 import React, { memo } from "react";
+import { NavLink } from "react-router-dom";
 import { Menu, NavOptions } from "./style";
-import MenuOption from "../MenuOption";
+
 import logo from "../../assets/logo_light.svg";
 
 const Header: React.FC = () => {
@@ -9,8 +10,12 @@ const Header: React.FC = () => {
       <div>
         <img src={logo} alt="Stock Manager" />
         <NavOptions>
-          <MenuOption isActive>Produtos</MenuOption>
-          <MenuOption>Entregas</MenuOption>
+          <NavLink activeClassName="active-link" to="/products">
+            Produtos
+          </NavLink>
+          <NavLink activeClassName="active-link" to="/delivery">
+            Entregas
+          </NavLink>
         </NavOptions>
       </div>
     </Menu>

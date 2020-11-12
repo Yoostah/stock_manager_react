@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { CardContainer } from "./style";
+import { CardContainer } from './style';
 
 const Card: React.FC = ({ children }) => {
   const [isSelected, setIsSelected] = useState(false);

@@ -1,5 +1,5 @@
-import React, { useState, LiHTMLAttributes, memo } from "react";
-import { Option } from "./style";
+import React, { useState, LiHTMLAttributes, memo } from 'react';
+import { Option } from './style';
 
 interface OptionProps extends LiHTMLAttributes<HTMLLIElement> {
   isActive?: Boolean;

@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import { shade } from "polished";
+import styled, { css } from 'styled-components';
+import { shade } from 'polished';
 
 interface CardProps {
   isSelected: Boolean;
@@ -36,7 +36,7 @@ export const CardContainer = styled.div<CardProps>`
         `
       : css`
           &:hover {
-            background: ${shade(0.3, "#3d5a80ff")};
+            background: ${shade(0.3, '#3d5a80ff')};
             transform: translateY(-5px);
             color: #fff;
             > svg {
@@ -57,8 +57,7 @@ export const CardContainer = styled.div<CardProps>`
     flex-direction: column;
 
     p {
-      font-size: 14px;
-      text-transform: uppercase;
+      font-size: 13px;
       line-height: 20px;
     }
     strong {

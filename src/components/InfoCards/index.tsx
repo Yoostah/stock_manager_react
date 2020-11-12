@@ -1,7 +1,7 @@
-import React, { memo } from "react";
-import { FiArrowUpCircle } from "react-icons/fi";
-import Card from "../Card";
-import { Container } from "./style";
+import React, { memo } from 'react';
+import { FiArrowUpCircle } from 'react-icons/fi';
+import Card from '../Card';
+import { Container } from './style';
 
 const InfoCards: React.FC = () => {
   return (

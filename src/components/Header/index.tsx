@@ -1,8 +1,8 @@
-import React, { memo } from "react";
-import { NavLink } from "react-router-dom";
-import { Menu, NavOptions } from "./style";
+import React, { memo } from 'react';
+import { NavLink } from 'react-router-dom';
+import { Menu, NavOptions } from './style';
 
-import logo from "../../assets/logo_light.svg";
+import logo from '../../assets/logo_light.svg';
 
 const Header: React.FC = () => {
   return (

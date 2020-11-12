@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 interface OptionProps {
-  isActive?: Boolean;
+  isActive: Boolean;
 }
 
 export const Option = styled.li<OptionProps>`

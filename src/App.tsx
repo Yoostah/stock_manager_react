@@ -1,5 +1,5 @@
 import React from "react";
-import GlobalStyle from "./style/global";
+import GlobalStyle, { GContainer } from "./style/global";
 
 import Header from "./components/Header";
 import InfoCards from "./components/InfoCards";
@@ -8,7 +8,9 @@ const App: React.FC = () => {
   return (
     <>
       <Header />
-      <InfoCards />
+      <GContainer>
+        <InfoCards />
+      </GContainer>
       <GlobalStyle />
     </>
   );

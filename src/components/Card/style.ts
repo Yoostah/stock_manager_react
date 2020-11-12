@@ -9,7 +9,7 @@ export const CardContainer = styled.div<CardProps>`
   display: flex;
   flex: 1;
   background: #3d5a80ff;
-  margin-top: 100px;
+  margin-top: -50px;
   justify-content: space-between;
   max-width: 300px;
   padding: 15px;

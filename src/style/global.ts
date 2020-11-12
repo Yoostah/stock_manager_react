@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 /* CSS HEX */
 // --blue: #3d5a80ff;
@@ -6,6 +6,12 @@ import { createGlobalStyle } from "styled-components";
 // --light-cyan: #e0fbfcff;
 // --burnt-sienna: #ee6c4dff;
 // --gunmetal: #293241ff;
+
+export const GContainer = styled.div`
+  max-width: 960px;
+  margin: 0 auto;
+  height: 100vh;
+`;
 
 export default createGlobalStyle`
   * {
@@ -31,8 +37,6 @@ export default createGlobalStyle`
   }
 
   #root {
-    max-width: 960px;
-    margin: 0 auto;
-    height: 100vh;
+
   }
 `;

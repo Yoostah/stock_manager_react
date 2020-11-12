@@ -1,16 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 
 import { CardContainer } from "./style";
 
-// interface CardProps extends HTMLAttributes<HTMLDivElement> {
-//   isSelected?: Boolean;
-// }
 const Card: React.FC = ({ children }) => {
   const [isSelected, setIsSelected] = useState(false);
-
-  const handleSelectedCard = useCallback(() => {
-    setIsSelected(!isSelected);
-  }, [isSelected]);
 
   return (
     <CardContainer

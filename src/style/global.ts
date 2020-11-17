@@ -18,7 +18,12 @@ export default createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     outline: 0;
+    overflow: -moz-scrollbars-none;
   }
+  *::-webkit-scrollbar {
+    display: none;
+  }
+
   body {
     -webkit-font-smoothing: antialiased;
     font-family: 'Roboto', sans-serif;

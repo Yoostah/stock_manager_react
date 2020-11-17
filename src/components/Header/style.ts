@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Menu = styled.div`
   background: #293241ff;
-  width: 100vw;
   height: 160px;
 
   div {

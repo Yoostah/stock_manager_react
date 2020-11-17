@@ -9,7 +9,7 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
-  margin-top: 20px;
+
   max-height: 60vh;
   overflow: auto;
   padding: 20px;
@@ -60,4 +60,9 @@ export const Product = styled.div<ProductProps>`
       }
     `;
   }}
+`;
+
+export const ProductCategory = styled.h1`
+  padding: 0 20px;
+  margin-top: 20px;
 `;

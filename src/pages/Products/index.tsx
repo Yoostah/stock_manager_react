@@ -37,7 +37,7 @@ const Products: React.FC = () => {
     });
   }, []);
 
-  const classifiedProductList = useMemo(() => {
+  const productsWithClassifiedStock = useMemo(() => {
     const productList = products.map((product) => {
       if (product.stock?.actual_stock) {
         if (product.minimum_stock > product.stock.actual_stock) {
@@ -51,61 +51,24 @@ const Products: React.FC = () => {
       const noStock = { ...product.stock, actual_stock: 0 };
       return { ...product, stock: { ...noStock } };
     });
-
     return productList;
   }, [products]);
 
-  // const panosCategory = useMemo(() => {
-  //   const productList = classifiedProductList.filter(
-  //     (product) => product.formattedCategory === 'Panos'
-  //   );
-  //   return productList;
-  // }, [classifiedProductList]);
+  const categoryzedProductList = useMemo(() => {
+    const categorizedProducts = productsWithClassifiedStock.reduce(
+      (map: Array<Products[]>, obj) => {
+        if (!map[obj.category_id]) {
+          map[obj.category_id] = [obj];
+        } else {
+          map[obj.category_id].push(obj);
+        }
 
-  const categoryzed = classifiedProductList.reduce(
-    (map: Array<Products[]>, obj) => {
-      if (!map[obj.category_id]) {
-        map[obj.category_id] = [obj];
-      } else {
-        map[obj.category_id].push(obj);
-      }
-
-      return map;
-    },
-    []
-  );
-
-  // console.log(categoryzed);
-  // const categorizedItems = (productList: Products[]) => {
-  //   let categorizedList: Products[];
-  //   productList.map((product) => {
-  //     return categorizedList[product.formattedCategory].push(product);
-  //   });
-  // };
-  // function groupBy2(productList: Products[], category: number) {
-  //   return productList.reduce((acc: Products[], product: Products) => {
-  //     const key = product[category];
-  //     if (!acc[key]) {
-  //       acc[key] = [];
-  //     }
-  //     acc[key].push(product);
-  //     return acc;
-  //   }, {});
-  // }
-  // const groupBy = (productList: Products[]) => {
-  //   return productList.reduce(
-  //     (products: Products[], product: Products, index: number) => (
-  //       (product[category_id(index)] ||= []).push(index), product
-  //     ),
-  //     []);
-  //     }
-  // };
-  // const officeCategory = useMemo(() => {
-  //   const productList = classifiedProductList.filter(
-  //     (product) => product.formattedCategory === 'Material de Escritório'
-  //   );
-  //   return productList;
-  // }, [classifiedProductList]);
+        return map;
+      },
+      []
+    );
+    return categorizedProducts;
+  }, [productsWithClassifiedStock]);
 
   return (
     <>
@@ -113,9 +76,9 @@ const Products: React.FC = () => {
         <InfoCards />
       </div>
 
-      {categoryzed.map((category) => {
+      {categoryzedProductList.map((category) => {
         return (
-          <>
+          <div key={category[0].category_id}>
             <ProductCategory>{category[0].formattedCategory}</ProductCategory>
             <Container>
               {category.map((product) => {
@@ -134,7 +97,7 @@ const Products: React.FC = () => {
                 );
               })}
             </Container>
-          </>
+          </div>
         );
       })}
     </>

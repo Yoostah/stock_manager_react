@@ -5,8 +5,8 @@ export const Menu = styled.div`
   height: 160px;
 
   div {
-    max-width: 960px;
-    margin: 0 auto;
+    /* max-width: 960px; */
+    margin: 0 30px;
     display: flex;
     padding: 30px 0;
     justify-content: space-between;

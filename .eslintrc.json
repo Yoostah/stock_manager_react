@@ -35,6 +35,8 @@
         "no-lone-blocks":"off",
         "camelcase": "off",
         "no-param-reassign": "off",
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": ["error"],
         "prettier/prettier": ["error",
         {
           "singleQuote": true

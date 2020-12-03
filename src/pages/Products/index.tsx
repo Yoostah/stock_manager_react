@@ -1,6 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
+import { FiArrowUpCircle } from 'react-icons/fi';
 import InfoCards from '../../components/InfoCards';
+import Card from '../../components/Card';
 
 import api from '../../services';
 import { Container, Product, ProductCategory } from './style';
@@ -22,8 +24,25 @@ interface Products {
   status: string;
 }
 
+interface IStockStatus {
+  outOfStock?: number;
+  inStock?: number;
+  minimunStock?: number;
+  totalItems?: number;
+  [key: string]: number | undefined;
+}
+
+enum ProductsFilterTypes {
+  withStock = 'OK',
+  outOfStock = 'DANGER',
+  withMinimumStock = 'WARNING',
+}
+
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Products[]>([]);
+  const [filteredProducts, setFileredProducts] = useState<Products[]>([]);
+  const [stockStatus, setProductStatus] = useState<IStockStatus>({});
+  const [productsFilter, setProductsFilters] = useState<string[]>([]);
 
   useEffect(() => {
     api.get<Products[]>('/item').then((response) => {
@@ -37,6 +56,18 @@ const Products: React.FC = () => {
     });
   }, []);
 
+  useEffect(() => {
+    async function getStockStatus() {
+      try {
+        const { data } = await api.get<IStockStatus>('/item/inventory-status');
+        setProductStatus(data);
+      } catch (error) {
+        throw new Error(error);
+      }
+    }
+    getStockStatus();
+  }, []);
+
   const productsWithClassifiedStock = useMemo(() => {
     const productList = products.map((product) => {
       if (product.stock?.actual_stock) {
@@ -46,6 +77,7 @@ const Products: React.FC = () => {
         if (product.minimum_stock === product.stock.actual_stock) {
           return { ...product, status: 'WARNING' };
         }
+
         return { ...product, status: 'DANGER' };
       }
       const noStock = { ...product.stock, actual_stock: 0 };
@@ -54,27 +86,82 @@ const Products: React.FC = () => {
     return productList;
   }, [products]);
 
+  useEffect(() => {
+    if (productsFilter.length) {
+      const filteredProductsList = productsWithClassifiedStock.filter((prod) =>
+        productsFilter.includes(prod.status)
+      );
+      setFileredProducts(filteredProductsList);
+    } else {
+      setFileredProducts(productsWithClassifiedStock);
+    }
+  }, [productsFilter, productsWithClassifiedStock]);
+
   const categoryzedProductList = useMemo(() => {
-    const categorizedProducts = productsWithClassifiedStock.reduce(
-      (map: Array<Products[]>, obj) => {
-        if (!map[obj.category_id]) {
-          map[obj.category_id] = [obj];
+    const categorizedProducts = filteredProducts.reduce(
+      (categoryzedProducts: Array<Products[]>, product) => {
+        if (!categoryzedProducts[product.category_id]) {
+          categoryzedProducts[product.category_id] = [product];
         } else {
-          map[obj.category_id].push(obj);
+          categoryzedProducts[product.category_id].push(product);
         }
 
-        return map;
+        return categoryzedProducts;
       },
       []
     );
     return categorizedProducts;
-  }, [productsWithClassifiedStock]);
+  }, [filteredProducts]);
+
+  function handleFilter(filter: string) {
+    if (productsFilter.includes(filter)) {
+      const filteredItems = productsFilter.filter(
+        (filteredItem) => filteredItem !== filter
+      );
+      setProductsFilters([...filteredItems]);
+    } else {
+      setProductsFilters([...productsFilter, filter]);
+    }
+  }
 
   return (
     <>
-      <div>
-        <InfoCards />
-      </div>
+      <InfoCards>
+        {stockStatus && (
+          <>
+            <Card
+              value={ProductsFilterTypes.withStock}
+              filterProducts={handleFilter}
+            >
+              <div>
+                <p>Produtos com Estoque</p>
+                <strong>{`${stockStatus.inStock}/${stockStatus.totalItems}`}</strong>
+              </div>
+              <FiArrowUpCircle size={20} />
+            </Card>
+            <Card
+              value={ProductsFilterTypes.outOfStock}
+              filterProducts={handleFilter}
+            >
+              <div>
+                <p>Produtos sem Estoque</p>
+                <strong>{`${stockStatus.outOfStock}/${stockStatus.totalItems}`}</strong>
+              </div>
+              <FiArrowUpCircle size={20} />
+            </Card>
+            <Card
+              value={ProductsFilterTypes.withMinimumStock}
+              filterProducts={handleFilter}
+            >
+              <div>
+                <p>Produtos com Estoque Mínimo</p>
+                <strong>{`${stockStatus.minimunStock}/${stockStatus.totalItems}`}</strong>
+              </div>
+              <FiArrowUpCircle size={20} />
+            </Card>
+          </>
+        )}
+      </InfoCards>
 
       {categoryzedProductList.map((category) => {
         return (

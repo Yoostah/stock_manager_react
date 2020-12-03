@@ -11,10 +11,14 @@ export const CardContainer = styled.div<CardProps>`
   background: #3d5a80ff;
   margin-top: -50px;
   justify-content: space-between;
-  max-width: 300px;
+  margin-right: 20px;
   padding: 15px;
   border-radius: 5px;
   transition: 0.2s;
+
+  &:last-child {
+    margin-right: 0;
+  }
 
   ${(props) =>
     props.isSelected

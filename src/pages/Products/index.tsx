@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { FiArrowUpCircle } from 'react-icons/fi';
-
 import InfoCards from '../../components/InfoCards';
 import Card from '../../components/Card';
 import Loader from '../../components/Loader';
@@ -74,13 +72,13 @@ const Products: React.FC = () => {
     const productList = products.map((product) => {
       if (product.stock?.actual_stock) {
         if (product.minimum_stock > product.stock.actual_stock) {
-          return { ...product, status: 'OK' };
+          return { ...product, status: 'DANGER' };
         }
         if (product.minimum_stock === product.stock.actual_stock) {
           return { ...product, status: 'WARNING' };
         }
 
-        return { ...product, status: 'DANGER' };
+        return { ...product, status: 'OK' };
       }
       const noStock = { ...product.stock, actual_stock: 0 };
       return { ...product, stock: { ...noStock } };
@@ -125,61 +123,44 @@ const Products: React.FC = () => {
       setProductsFilters([...productsFilter, filter]);
     }
   }
-  console.log(stockStatus);
+
   return (
     <>
       <InfoCards>
-        {stockStatus && (
+        {Object.getOwnPropertyNames(stockStatus).length ? (
           <>
             <Card
               value={ProductsFilterTypes.withStock}
               filterProducts={handleFilter}
             >
-              {Object.getOwnPropertyNames(stockStatus).length ? (
-                <>
-                  <div>
-                    <p>Produtos com Estoque</p>
-                    <strong>{`${stockStatus.inStock}/${stockStatus.totalItems}`}</strong>
-                  </div>
-                  <FiArrowUpCircle size={20} />
-                </>
-              ) : (
-                <Loader />
-              )}
+              <div>
+                <p>Produtos com Estoque</p>
+                <strong>{`${stockStatus.inStock}/${stockStatus.totalItems}`}</strong>
+              </div>
             </Card>
             <Card
               value={ProductsFilterTypes.outOfStock}
               filterProducts={handleFilter}
             >
-              {Object.getOwnPropertyNames(stockStatus).length ? (
-                <>
-                  <div>
-                    <p>Produtos sem Estoque</p>
-                    <strong>{`${stockStatus.outOfStock}/${stockStatus.totalItems}`}</strong>
-                  </div>
-                  <FiArrowUpCircle size={20} />
-                </>
-              ) : (
-                <Loader />
-              )}
+              <div>
+                <p>Produtos sem Estoque</p>
+                <strong>{`${stockStatus.outOfStock}/${stockStatus.totalItems}`}</strong>
+              </div>
             </Card>
             <Card
               value={ProductsFilterTypes.withMinimumStock}
               filterProducts={handleFilter}
             >
-              {Object.getOwnPropertyNames(stockStatus).length ? (
-                <>
-                  <div>
-                    <p>Produtos com Estoque Mínimo</p>
-                    <strong>{`${stockStatus.minimunStock}/${stockStatus.totalItems}`}</strong>
-                  </div>
-                  <FiArrowUpCircle size={20} />
-                </>
-              ) : (
-                <Loader />
-              )}
+              <div>
+                <p>Produtos com Estoque Mínimo</p>
+                <strong>{`${stockStatus.minimunStock}/${stockStatus.totalItems}`}</strong>
+              </div>
             </Card>
           </>
+        ) : (
+          <Card>
+            <Loader />
+          </Card>
         )}
       </InfoCards>
 

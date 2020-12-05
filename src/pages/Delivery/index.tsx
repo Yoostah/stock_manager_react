@@ -1,13 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
 
-import { Container } from './style';
+import { Container, Header, DeliveryContent } from './style';
+import DeliveryInfo from '../../components/DeliveryInfo';
 import api from '../../services';
 
 interface IDeliveries {
   id: number;
   description: string;
   delivery_at: string;
-  status_id: number;
+  status: {
+    name: string;
+  };
   items: IProducts[];
 }
 
@@ -35,33 +38,21 @@ const Delivery: React.FC = () => {
   }, [fetchDeliveries]);
 
   return (
-    <>
-      {/* <div>
-        <InfoCards />
-      </div> */}
-      {deliveries &&
-        deliveries.map((delivery) => {
-          return (
-            <div key={delivery.id}>
-              <p>{delivery.description}</p>
-              <strong>{`Entregue em: ${delivery.delivery_at}`}</strong>
-              {delivery.items &&
-                delivery.items.map((item) => {
-                  const { amount } = item.pivot;
-                  return (
-                    <div>
-                      <h3 key={item.id}>{item.name}</h3>
-                      <strong>{amount}</strong>
-                    </div>
-                  );
-                })}
-            </div>
-          );
-        })}
-      <Container>
-        <p>Entregas</p>
-      </Container>
-    </>
+    <Container>
+      <DeliveryContent>
+        <Header>
+          <div>Nome</div>
+          <div>Data</div>
+          <div>Status</div>
+          <div>Detalhes</div>
+        </Header>
+
+        {deliveries &&
+          deliveries.map((delivery) => {
+            return <DeliveryInfo key={delivery.id} delivery={delivery} />;
+          })}
+      </DeliveryContent>
+    </Container>
   );
 };
 

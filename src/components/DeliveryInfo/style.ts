@@ -17,10 +17,8 @@ export const Container = styled.div<DeliveryItemProps>`
       color: black;
     }
 
-    > div {
-      > div {
-        background: #fff;
-      }
+    > div > div {
+      background: #fff;
     }
   }
 

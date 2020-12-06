@@ -1,32 +1,33 @@
 import React from 'react';
-import { FiLogIn } from 'react-icons/fi';
+import { FiArrowLeft } from 'react-icons/fi';
 import { Container, FormContent, Background } from './style';
 import logo from '../../assets/logo_light.svg';
 
-const Login: React.FC = () => {
+const SignIn: React.FC = () => {
   return (
     <Container>
+      <Background />
       <FormContent>
         <img src={logo} alt="Stock Manager" />
         <form>
-          <h1>Faça seu logon</h1>
-          <input type="text" name="email" id="email" placeholder="E-mail" />
+          <h1>Faça seu Cadastro</h1>
+          <input type="text" name="name" id="name" placeholder="Nome" />
+          <input type="email" name="email" id="email" placeholder="E-mail" />
           <input
-            type="email"
+            type="text"
             name="password"
             id="password"
             placeholder="Senha"
           />
-          <button type="submit">Entrar</button>
+          <button type="submit">Cadastrar</button>
         </form>
         <a href="http://">
-          <FiLogIn />
-          Criar Conta
+          <FiArrowLeft />
+          Voltar para Logon
         </a>
       </FormContent>
-      <Background />
     </Container>
   );
 };
 
-export default Login;
+export default SignIn;

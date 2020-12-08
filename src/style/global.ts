@@ -8,8 +8,10 @@ import styled, { createGlobalStyle } from 'styled-components';
 // --gunmetal: #293241ff;
 
 export const GContainer = styled.div`
-  max-width: 960px;
-  margin: 0 auto;
+  &:not(.fullWidth) {
+    max-width: 960px;
+    margin: 0 auto;
+  }
 `;
 
 export default createGlobalStyle`
@@ -26,7 +28,8 @@ export default createGlobalStyle`
 
   body {
     -webkit-font-smoothing: antialiased;
-    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Berlin Sans FB', sans-serif;
     background: #98c1d9ff;
     color: #fff;
   }

@@ -8,7 +8,7 @@ import { useAuth } from '../../context/AuthContext';
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { user, tryLogin } = useAuth();
+  const { tryLogin } = useAuth();
 
   const handleSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -17,8 +17,7 @@ const Login: React.FC = () => {
     },
     [email, password, tryLogin]
   );
-  // eslint-disable-next-line
-  console.log(user);
+
   return (
     <Container>
       <FormContent>

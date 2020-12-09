@@ -15,7 +15,7 @@ const Routes: React.FC = () => (
     <Route path="/register" component={SignIn} />
     <Route path="/products" component={Products} />
     <Route path="/delivery" component={Delivery} />
-    <Redirect from="*" to="/" />
+    <Redirect from="*" to="/login" />
   </Switch>
 );
 

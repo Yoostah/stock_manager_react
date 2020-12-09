@@ -19,6 +19,7 @@ interface IAuthData {
 interface IAuthContext {
   user: object;
   tryLogin: (credentials: ILoginCredentials) => Promise<void>;
+  logout: () => void;
 }
 
 const AuthContext = createContext<IAuthContext>({} as IAuthContext);
@@ -62,8 +63,19 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   }, []);
 
+  const logout = useCallback(() => {
+    if (
+      localStorage.getItem('@StockManager_token') &&
+      localStorage.getItem('@StockManager_user')
+    ) {
+      localStorage.removeItem('@StockManager_token');
+      localStorage.removeItem('@StockManager_user');
+      setUserData({} as IAuthData);
+    }
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user: userData.user, tryLogin }}>
+    <AuthContext.Provider value={{ user: userData.user, tryLogin, logout }}>
       {children}
     </AuthContext.Provider>
   );

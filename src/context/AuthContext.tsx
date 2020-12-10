@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import api from '../services';
+import { useToast } from './ToastContext';
 
 interface ILoginCredentials {
   email: string;
@@ -33,6 +34,7 @@ export function useAuth(): IAuthContext {
 }
 
 export const AuthProvider: React.FC = ({ children }) => {
+  const { addToast } = useToast();
   const [userData, setUserData] = useState<IAuthData>(() => {
     const token = !!localStorage.getItem('@StockManager_token');
     const localData = localStorage.getItem('@StockManager_user');
@@ -59,6 +61,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       }
     } catch (error) {
       // eslint-disable-next-line
+      //addToast({title : 'Testes', message: 'Erro'});
       console.error(error);
     }
   }, []);

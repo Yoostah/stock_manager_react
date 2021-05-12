@@ -39,7 +39,7 @@ const ToastProvider: React.FC = ({ children }) => {
     ]);
   }, []);
   const removeToast = useCallback(() => {
-    console.log('Toast Removed');
+    // console.log('Toast Removed');
   }, []);
 
   return (

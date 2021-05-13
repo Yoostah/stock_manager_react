@@ -5,4 +5,6 @@ export const colors = {
   light: '#e0fbfcff',
   dark: '#293241ff',
   white: '#fff',
+
+  error: '#c53030',
 };

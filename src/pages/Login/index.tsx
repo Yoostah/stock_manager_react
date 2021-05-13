@@ -1,45 +1,38 @@
 import React, { FormEvent, useCallback, useState } from 'react';
-import { FiBox } from 'react-icons/fi';
+import { FiBox, FiLock, FiMail } from 'react-icons/fi';
+import { Form } from '@unform/web';
 import { Container, FormContent, Background } from './style';
+
 import logo from '../../assets/logo_light.svg';
 
 import { useAuth } from '../../context/AuthContext';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const { tryLogin } = useAuth();
 
-  const handleSubmit = useCallback(
-    async (e: FormEvent<HTMLFormElement>): Promise<void> => {
-      e.preventDefault();
-      tryLogin({ email, password });
-    },
-    [email, password, tryLogin]
-  );
+  const handleSubmit = useCallback((data: Object) => {
+    console.log(data);
+
+    // tryLogin({ email, password });
+  }, []);
 
   return (
     <Container>
       <FormContent>
         <img src={logo} alt="Stock Manager" />
-        <form onSubmit={handleSubmit}>
-          <h1>Faça seu logon</h1>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="E-mail"
-          />
-          <input
+        <Form initialData={{}} onSubmit={handleSubmit}>
+          <h1>Faça seu login</h1>
+          <Input type="email" name="email" placeholder="E-mail" icon={FiMail} />
+          <Input
             type="password"
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             placeholder="Senha"
+            icon={FiLock}
           />
-          <button type="submit">Entrar</button>
-        </form>
+          <Button type="submit">Entrar</Button>
+        </Form>
         <a href="http://">
           <FiBox />
           Criar Conta

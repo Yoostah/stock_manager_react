@@ -1,11 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components';
-
-/* CSS HEX */
-// --blue: #3d5a80ff;
-// --lightBlue: #98c1d9ff;
-// --light-cyan: #e0fbfcff;
-// --burnt-sienna: #ee6c4dff;
-// --gunmetal: #293241ff;
+import { colors } from './colors';
 
 export const GContainer = styled.div`
   &:not(.fullWidth) {
@@ -30,8 +24,8 @@ export default createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     /* font-family: 'Roboto', sans-serif; */
     font-family: 'Berlin Sans FB', sans-serif;
-    background: #98c1d9ff;
-    color: #fff;
+    background: ${colors.secondary};
+    color: ${colors.white};
   }
 
   input, button {
@@ -44,7 +38,7 @@ export default createGlobalStyle`
   }
 
   a {
-    color: #fff;
+    color: ${colors.white};
     text-decoration: none;
   }
 `;

@@ -1,26 +1,32 @@
 import React from 'react';
-import { FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft, FiLock, FiMail, FiUser } from 'react-icons/fi';
+import { Form } from '@unform/web';
 import { Container, FormContent, Background } from './style';
 import logo from '../../assets/logo_light.svg';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 const SignIn: React.FC = () => {
+  const handleSubmit = (data: Object) => {
+    console.log(data);
+  };
   return (
     <Container>
       <Background />
       <FormContent>
         <img src={logo} alt="Stock Manager" />
-        <form>
+        <Form onSubmit={handleSubmit}>
           <h1>Faça seu Cadastro</h1>
-          <input type="text" name="name" id="name" placeholder="Nome" />
-          <input type="email" name="email" id="email" placeholder="E-mail" />
-          <input
+          <Input type="text" name="name" placeholder="Nome" icon={FiUser} />
+          <Input type="email" name="email" placeholder="E-mail" icon={FiMail} />
+          <Input
             type="text"
             name="password"
-            id="password"
             placeholder="Senha"
+            icon={FiLock}
           />
-          <button type="submit">Cadastrar</button>
-        </form>
+          <Button type="submit">Cadastrar</Button>
+        </Form>
         <a href="http://">
           <FiArrowLeft />
           Voltar para Logon

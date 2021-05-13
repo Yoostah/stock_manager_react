@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { shade } from 'polished';
 import backgroundImg from '../../assets/background.jpg';
+import { colors } from '../../style/colors';
 
 export const Container = styled.div`
   height: 100vh;
   display: flex;
   align-items: stretch;
-  background: #293241ff;
+  background: ${colors.dark};
 `;
 export const FormContent = styled.div`
   display: flex;
@@ -32,48 +32,19 @@ export const FormContent = styled.div`
       font-weight: normal;
     }
 
-    input {
-      background: #e0fbfcff;
-      border-radius: 10px;
-      border: 2px solid #e0fbfcff;
-      padding: 16px;
-      width: 100%;
+    > a {
+      display: flex;
+      align-items: center;
+      color: ${colors.orange};
+      margin-top: 24px;
+      transition: color 0.2s;
 
-      //Input precedido por outro
-      & + input {
-        margin-top: 8px;
+      svg {
+        margin-right: 10px;
       }
-    }
-    button {
-      background: #ee6c4dff;
-      color: #e0fbfcff;
-      height: 56px;
-      border-radius: 10px;
-      border: 0;
-      padding: 0 16px;
-      width: 100%;
-      font-weight: bold;
-      margin-top: 16px;
-      transition: background-color 0.3s ease;
-
       &:hover {
-        background: ${shade(0.2, '#ee6c4dff')};
+        color: ${colors.light};
       }
-    }
-  }
-
-  > a {
-    display: flex;
-    align-items: center;
-    color: #ee6c4dff;
-    margin-top: 24px;
-    transition: color 0.2s;
-
-    svg {
-      margin-right: 10px;
-    }
-    &:hover {
-      color: #e0fbfcff;
     }
   }
 `;

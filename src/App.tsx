@@ -1,26 +1,23 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import GlobalStyle, { GContainer } from './style/global';
-import { AuthProvider } from './context/AuthContext';
-import ToastProvider from './context/ToastContext';
 
-// import Header from './components/Header';
+import Header from './components/Header';
 
 import Routes from './routes';
+import AppProvider from './context';
 
 const App: React.FC = () => {
   return (
     <>
-      <AuthProvider>
+      <AppProvider>
         <Router>
           {/* <Header /> */}
           <GContainer className="fullWidth">
-            <ToastProvider>
-              <Routes />
-            </ToastProvider>
+            <Routes />
           </GContainer>
         </Router>
-      </AuthProvider>
+      </AppProvider>
       <GlobalStyle />
     </>
   );

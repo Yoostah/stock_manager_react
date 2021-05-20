@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
-import api from '../services';
+import { apiPost } from '../services';
 import { useToast } from './ToastContext';
+import * as ENDPOINTS from '../config/urls';
 
 interface ILoginCredentials {
   email: string;
@@ -33,7 +34,7 @@ export function useAuth(): IAuthContext {
   return context;
 }
 
-export const AuthProvider: React.FC = ({ children }) => {
+const AuthProvider: React.FC = ({ children }) => {
   const { addToast } = useToast();
   const [userData, setUserData] = useState<IAuthData>(() => {
     const token = !!localStorage.getItem('@StockManager_token');
@@ -47,22 +48,24 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const tryLogin = useCallback(async ({ email, password }) => {
     try {
-      const response = await api.post('login', {
+      const response = await apiPost(ENDPOINTS.LOGIN, {
         email,
         password,
       });
+      // const users = await response.json();
+      console.log(response);
 
-      const { data: user, token } = response.data;
-      if (user && token) {
-        localStorage.setItem('@StockManager_token', token);
-        localStorage.setItem('@StockManager_user', JSON.stringify(user));
+      // const { data: user, token } = response.data;
+      // if (user && token) {
+      //   localStorage.setItem('@StockManager_token', token);
+      //   localStorage.setItem('@StockManager_user', JSON.stringify(user));
 
-        setUserData({ user, token });
-      }
+      //   setUserData({ user, token });
+      // }
     } catch (error) {
       // eslint-disable-next-line
       //addToast({title : 'Testes', message: 'Erro'});
-      console.error(error);
+      // console.error(error);
     }
   }, []);
 
@@ -83,3 +86,5 @@ export const AuthProvider: React.FC = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export default AuthProvider;

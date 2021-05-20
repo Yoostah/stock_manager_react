@@ -7,7 +7,7 @@ import { Container, FormContent, Background } from './style';
 
 import logo from '../../assets/logo_light.svg';
 
-import { useAuth } from '../../context/AuthContext';
+import { ILoginCredentials, useAuth } from '../../context/AuthContext';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import getValidationErrors from '../../utils/getValidationErrors';
@@ -16,25 +16,33 @@ const Login: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { tryLogin } = useAuth();
 
-  const handleSubmit = useCallback(async (data: Object) => {
-    try {
-      formRef.current?.setErrors({}); // Sempre remover os erros antes de realizar uma nova validaçáo
+  const handleSubmit = useCallback(
+    async (data: ILoginCredentials) => {
+      try {
+        formRef.current?.setErrors({}); // Sempre remover os erros antes de realizar uma nova validaçáo
 
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .required('E-mail obrigatório')
-          .email('Digite um e-mail válido'),
-        password: Yup.string().required('Senha obrigatória'),
-      });
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required('E-mail obrigatório')
+            .email('Digite um e-mail válido'),
+          password: Yup.string().required('Senha obrigatória'),
+        });
 
-      await schema.validate(data, {
-        abortEarly: false, // Retorna todos os erros em vez de parar no primeiro erro
-      });
-    } catch (error) {
-      const errors = getValidationErrors(error);
-      formRef.current?.setErrors(errors);
-    }
-  }, []);
+        await schema.validate(data, {
+          abortEarly: false, // Retorna todos os erros em vez de parar no primeiro erro
+        });
+
+        tryLogin({
+          email: data.email,
+          password: data.password,
+        });
+      } catch (error) {
+        const errors = getValidationErrors(error);
+        formRef.current?.setErrors(errors);
+      }
+    },
+    [tryLogin]
+  );
 
   return (
     <Container>

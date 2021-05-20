@@ -3,7 +3,7 @@ import { apiPost } from '../services';
 import { useToast } from './ToastContext';
 import * as ENDPOINTS from '../config/urls';
 
-interface ILoginCredentials {
+export interface ILoginCredentials {
   email: string;
   password: string;
 }
@@ -53,15 +53,19 @@ const AuthProvider: React.FC = ({ children }) => {
         password,
       });
       // const users = await response.json();
-      console.log(response);
+      // console.log(response);
 
-      // const { data: user, token } = response.data;
-      // if (user && token) {
-      //   localStorage.setItem('@StockManager_token', token);
-      //   localStorage.setItem('@StockManager_user', JSON.stringify(user));
+      const { data: user, token } = response;
 
-      //   setUserData({ user, token });
-      // }
+      console.log(user);
+      console.log(token);
+
+      if (user && token) {
+        localStorage.setItem('@StockManager_token', token);
+        localStorage.setItem('@StockManager_user', JSON.stringify(user));
+
+        setUserData({ user, token });
+      }
     } catch (error) {
       // eslint-disable-next-line
       //addToast({title : 'Testes', message: 'Erro'});
@@ -76,8 +80,8 @@ const AuthProvider: React.FC = ({ children }) => {
     ) {
       localStorage.removeItem('@StockManager_token');
       localStorage.removeItem('@StockManager_user');
-      setUserData({} as IAuthData);
     }
+    setUserData({} as IAuthData);
   }, []);
 
   return (

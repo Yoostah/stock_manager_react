@@ -22,13 +22,8 @@ const Input: React.FC<IInputProps> = ({ name, icon: Icon, ...rest }) => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const {
-    fieldName,
-    defaultValue,
-    error,
-    registerField,
-    clearError,
-  } = useField(name);
+  const { fieldName, defaultValue, error, registerField, clearError } =
+    useField(name);
 
   useEffect(() => {
     registerField({
